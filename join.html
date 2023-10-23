@@ -49,48 +49,11 @@
 					<span id="qos">V</span>DO.Ninja 
 				</span>
 			</a>
-			<div id="head1" style="height: 100%; display: flex; align-items: center;">
-				<input type="text" autocorrect="off" autocapitalize="none" id="joinroomID" name="joinroomID" tabindex="1" size="22" placeholder="Join by Room Name here" alt="Enter a room name to join" title="Enter a room name to quick join" onkeyup="jumptoroom(event)"/>
-				<button onclick="jumptoroom();" id='jumptoroomButton' role="button" aria-pressed="false" tabindex="1" alt="Join room" title="Join room" >GO</button>
+			<div id="head1" style="height: 100%; display: flex; align-items: center; flex-direction: column;">
+				<h1>Připojit se do místnosti</h1>
+				<input type="text" autocorrect="off" autocapitalize="none" id="joinroomID" name="joinroomID" tabindex="1" size="22" placeholder="Zadejte kód místnosti" alt="Zadejte kód místnosti" title="Zadejte kód místnosti pro připojení" onkeyup="jumptoroom(event)"/>
+				<button onclick="jumptoroom();" id='jumptoroomButton' role="button" aria-pressed="false" tabindex="1" alt="Join room" title="Join room" >Připojit se</button>
 			</div>
-			<div id="head1a" class="hidden">
-				<input type="text" autocorrect="off" autocapitalize="none" id="joinbyURL" name="joinbyURL" size="22" placeholder="Load a website URL" alt="Enter the URL to load" title="Enter the URL to load"/>
-				<button onclick="jumptoURL(event)"  role="button" aria-pressed="false" alt="Load URL" title="Load URL" >Load URL</button>
-			</div>
-			<div id="head5" class="hidden"></div>
-			<div id="head3" style="display: inline-block;" class="hidden">
-				<span style="color: #888;" id="copythisurl" tabindex="1" > &nbsp; 
-					<span data-translate="copy-this-url">Copy this URL into an OBS "Browser Source"</span> <i style="color: #CCC;" class="las la-long-arrow-alt-right"></i> &nbsp; 
-				</span>
-			</div>
-			<div id="head3a" style="display: inline-block;" class="hidden">
-				<a
-					id="reshare"
-					data-drag="1"
-					onclick="copyFunction(this, event)"
-					class="task grabLinks"
-					data-menu="context-menu"
-					style="font-weight: bold; color: #afa !important; cursor: grab; background-color: #0000;  font-size: 115%; min-width: 335px; max-width: 800px;"
-				></a>
-				<i class="las la-paperclip" style="color: #DDD;" title="Copy link to clipboard" onclick="copyFunction(document.getElementById('reshare'), event);" onmouseover="this.style.cursor='pointer'"></i>
-				<span title="Save and ask to reload the current page on next site visit" style='font-size:92%;' onclick="saveRoom(this);" onmouseover="this.style.cursor='pointer'">💾</span>
-			</div>
-			<div id="head4" style="display: inline-block;" class="hidden">
-				<span style="font-size: 68%; color: white;">
-					<span data-translate="you-are-in-the-control-center">Control center for room:</span>
-					
-					<div id="dirroomid" style="font-size: 0%; color: #99c; display: inline-block;"></div>
-					<span id="saveRoom" onclick="saveRoom(this)" style='cursor:pointer;margin-left:10px;' title="Will remember the room, prompting you the next time you visit if you wish to load this director's room again">💾</span>
-					<span id="togglePreviewMode" onclick="switchModes()" style='cursor:pointer;margin-left:2px;' title="Toggle between the director control-room view and a scene preview-mode.">🪟</span>
-				</span>
-			</div>
-			<div id="head2" class="hidden" style="display: inline-block; text-decoration: none; font-size: 60%; color: white;">
-				<span data-translate="joining-room">You are in room</span>:
-				<div id="roomid" style="display: inline-block;"></div>
-			</div>
-			<div id="head6" class="hidden" data-translate="only-director-can-hear-you">Only the director can hear you currently.</div>
-			<div id="head7" class="hidden" data-translate="director-muted-you">The director has muted you.</div>
-			<div id="head8" class="hidden" data-translate="director-video-muted-you">The director has disabled your camera temporarily.</div>
 		</div>
 		
 		
@@ -114,110 +77,6 @@
 			
 			session.stunServers = [{ urls: ["stun:stun.l.google.com:19302", "stun:stun.cloudflare.com:3478"]}]; // google + cloudflare stun servers. default
 			
-			///////////////  ------  Custom basic TURN SETUP SECTION STARTS Here --------
-			// session.configuration = {         // uncomment to disable the default usage of the vdo.ninja turn servers.
-			//	iceServers: session.stunServers,
-			//	sdpSemantics: 'unified-plan'
-			// };
-			// var turn = {}; // Just an example entry for a basic TURN server 
-			// turn.username = "steve";
-			// turn.credential = "justtesting";
-			// turn.urls = ["turn:turn.obs.ninja:443"]; 
-			// session.configuration.iceServers.push(turn);
-			//
-			// turn = {}; // second turn server example entry. 
-			// turn.username = "steve";
-			// turn.credential = "justtesting";
-			// turn.urls = ["turn:turn2.obs.ninja:443"]; 
-			// session.configuration.iceServers.push(turn);
-			/////////////// ------------ END OF TURN SETUP SECTION -------
-
-			/////////////// --------  Alternative custom TURN SETUP SECTION here ---------
-			// Use this section if you plan to use the turn-credentials.php sample and its use-auth-secret and static-auth-secret method, rather than a plain password
-			// 
-			// try {
-				// session.ws = false; // prevents connection
-				// var phpcredentialsRequest = new XMLHttpRequest();
-				// phpcredentialsRequest.onload = function() {
-					// if (this.status === 200) {
-						// try {
-							// var res = JSON.parse(this.responseText);
-						// } catch(e){
-							// console.error(e); // not proper JSON
-							// return;
-						// }
-						// session.configuration = {};
-						// session.configuration.sdpSemantics = "unified-plan";
-						// session.configuration.iceServers = [];
-						//  // session.configuration.iceServers = session.stunServers; // Uncomment to use the hard-coded Google STUN servers, if we don't provide our own STUN
-
-						// let phpIceServers = {"username": res[0], "credential": res[1], urls:[]};
-						// for (let i = 2; i < res.length; i++){ // Supports one or multiple TURN/STUN servers, but assumes same credientials for each.
-							// phpIceServers['urls'].push(res[i]);
-						// };
-						// session.configuration.iceServers.push(phpIceServers);
-
-						// if (session.ws===false){
-							// session.ws=null; // allows connection (clears block state)
-							// session.connect(); // connect if not already connected.
-						// }
-					// }
-					//  // system does not connect if php script does not respond.
-				// };
-				// phpcredentialsRequest.open('GET', './turn-credentials.php', true); // `false` makes the request synchronous
-				// phpcredentialsRequest.send();
-			// } catch (e) {
-				// console.error(e);
-				// errorlog("php-credentials script Failed");
-			// }
-			//////////////////// -------------- END OF ALTERNATIVE TURN SETUP SECTION -------
-
-			// session.configuration.iceTransportPolicy = "relay";  // uncomment to enable "&privacy" and force the TURN server's use
-
-			// session.wss = "wss://wss.vdo.ninja:443"; // US-East (Default)
-
-			//  If wanting to fully-self-host, uncomment the following and deploy your own websocket server; good for air-gapped deployments
-			// session.wss = "wss://wss.yourdomainhere.com:443"; // https://github.com/steveseguin/websocket_server 
-			// session.customWSS = true;
-			//////
-			
-			///// The following lets you set the defaults
-
-			// session.webcamonly // true,false
-			// session.stereo // 0,1,2,3,4,5
-			// session.audiobitrate // int in kbps
-			// session.view // "xxxx" ; the stream ID or a list of Stream IDs to Connect to. Not the same as &noaudio/&novideo. Set to "" (empty) if you don't wish to connect to any.
-			// session.remote // See docs, but allows for remote stats monitoring and remote focus/zoom control
-			// session.optimize  // Whether to optimize invisible scenes in OBS. See docs.vdo.ninja. Setting to 0 will pause the video/audio when not visible in OBS
-			// session.disableOBS // If true, will disable any OBS-specific events/functions.
-			// session.noaudio // False by default, otherwise specify a list [] of stream IDs to allow. Listing none allows no incoming audio streams
-			// session.novideo // False by default, otherwise specify a list [] of stream IDs to allow. Listing none allows no incoming video streams
-			// session.forceios // If true, will allow iOS devices to send H264 video to other guests in a room
-			// session.nocursor // hides the cursor using CSS
-			// session.codec // default codec; maybe h264 is useful? the default is up to the browser normally
-			// session.scale // By default, scale is self-optimizing, but you can set a value of 1 to 100 to choose the playback scale of all incoming video streams
-			// session.bitrate  // int in kbps -- you can set the default max target bitrate here
-			// session.totalRoomBitrate = 500; // int, kbps -- you can set the default quality of the group room here
-			// session.height // int  ; height to publish a video stream at.  Will fail if not supported by the camera
-			// session.width // int ; see above
-			// session.quality // int  -- if setting == 0, then than the default resolution will be 1080p, instead of 720p60 (q=1) , while  q=2 = 360p30.
-			// session.sink // Output device to playback audio to. see the docs
-			// session.offsetChannel // int
-			// session.audioChannels // int
-			// session.security // true to disable the wss connection after the first peer connection is made
-			// session.frameRate // int ; publishing frame rate. will fail if camera does not support it.
-			// session.sync // see the docs
-			// session.buffer // int in milliseconds ; see the docs
-			// session.roomid // "yyyy"  -- the room name to use.  alphanumeric.
-			// session.scene // the scene name. Scene 0, 1, ... 8, or any custom scene name is supported.  STRING value. Needed to have a clean view link of a guest stream
-			// session.title // "zzzz"   ; sets the title of the browser page.
-			// session.introOnClean = true; // this will load the page with the webcam selection screen if &push or &room is in the URL; no need to use &webcam.
-			// session.lowBitrateCutoff = 300; // Set a minimum bitrate (in kbps) before the stream is hidden. Useful for IRL streams maybe
-			// session.apiserver = "wss://api.vdo.ninja:443"; // specifiy a custom websocket API URL.
-			// session.darkmode = false; // enable or disable the dark style theme as the default
-			// session.defaultBackgroundImages = ["./media/bg_sample1.webp", "./media/bg_sample2.webp"]; // for &effects=5 (virtual backgrounds)
-			// session.hidehome = true; // If used, 'hide home' will make the landing page inaccessible, along with hiding a few go-home elements.
-			// session.record = false; // uncomment to block users from being able to record via vdo.ninja's built in recording function
 		</script>
 		<script type="text/javascript" crossorigin="anonymous" id="lib-js" src="./lib.js?ver=917"></script>
 		<!-- 
