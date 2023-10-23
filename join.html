@@ -1,20 +1,5 @@
 <html lang='en'>
 	<head>
-		<script type="text/javascript">
-			//  MS Internet Explorer must not be given a chance to fail before I can give the user an error message.
-			try {
-				var msie = window.navigator.userAgent.indexOf("MSIE ");
-				if (msie>0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)){ // If MSIE or IE 11
-					alert("Internet Explorer is not supported.\n\nPlease consider using Microsoft Edge or Google Chrome instead\n\nYou will be forwarded to the download page for MS Edge now.");
-					console.error("INTERNET EXPLORER IS EVIL");
-					document.write("Internet Explorer is not supported");
-					window.location = "https://www.microsoft.com/edge";
-				}
-			} catch(e){
-				console.error(e);
-			}
-		
-		</script>
 		<style>
 			html {
 				background-color: #0000;
@@ -29,7 +14,6 @@
 		<link id="favicon1" rel="icon" type="image/png" sizes="32x32" href="./media/favicon-32x32.png" />
 		<link id="favicon2" rel="icon" type="image/png" sizes="16x16" href="./media/favicon-16x16.png" />
 		<link id="favicon3" rel="icon" href="./media/favicon.ico" />
-		<link id="thumbnailUrl" itemprop="thumbnailUrl" href="./media/vdoNinja_logo_full.png" />
 
 		<title>Panel</title>
 		<link rel="stylesheet" href="./main.css?ver=365" />
@@ -42,20 +26,9 @@
 		<!-- Until Chrome v117 ends ; blur -->
 		<meta http-equiv="origin-trial" content="Aqwjtr1IS9AdkcWCFAOHtMMmsKDy8Ti58hQBbHkR/HnloiMhkW17cYgnkiLgOH9zuTDC/o4GquQ0MHe9tqT51wcAAABdeyJvcmlnaW4iOiJodHRwczovL3Zkby5uaW5qYTo0NDMiLCJmZWF0dXJlIjoiTWVkaWFDYXB0dXJlQmFja2dyb3VuZEJsdXIiLCJleHBpcnkiOjE2OTg5Njk1OTl9">
 		
-		<!-- <link rel="manifest" href="manifest.json" /> -->
-			<!-- ios support 
-			<link rel="apple-touch-icon" href="images/icons/icon-72x72.png" />
-			<link rel="apple-touch-icon" href="images/icons/icon-96x96.png" />
-			<link rel="apple-touch-icon" href="images/icons/icon-128x128.png" />
-			<link rel="apple-touch-icon" href="images/icons/icon-4x4.png" />
-			<link rel="apple-touch-icon" href="images/icons/icon-152x152.png" />
-			<link rel="apple-touch-icon" href="images/icons/icon-192x192.png" />
-			<link rel="apple-touch-icon" href="images/icons/icon-384x384.png" />
-			<link rel="apple-touch-icon" href="images/icons/icon-512x512.png" />
-			<meta name="apple-mobile-web-app-status-bar" content="#db4938" />
-		-->
+		
 	</head>
-	<body id="main" class="main hidden" onload="main()">
+	<body id="main" class="main hidden" style="height: 100%;" onload="main()">
 		<span itemprop="image" itemscope itemtype="image/png">
 			<link itemprop="url" href="./media/vdoNinja_logo_full.png" />
 		</span>
@@ -69,7 +42,7 @@
 		<script type="text/javascript" crossorigin="anonymous" src="./webrtc.js?ver=696"></script>
 		<input id="zoomSlider" type="range" style="display: none;" />
 		<span id="electronDragZone" style="pointer-events: none; z-index:-10; position:absolute;top:0;left:0;width:100%;height:2%;-webkit-app-region: drag;min-height:20px;"></span>
-		<div id="header">
+		<div id="header style="height: 100%; display: flex; align-items: center;">
 			
 			<a id="logoname" href="./" style="text-decoration: none; color: white; margin: 0 2px 0px 8px;">
 				<span data-translate="logo-header">
